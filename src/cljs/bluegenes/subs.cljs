@@ -13,6 +13,7 @@
             [bluegenes.pages.tools.subs]
             [bluegenes.pages.developer.subs]
             [bluegenes.pages.results.widgets.subs]
+            [bluegenes.pages.regions.subs]
             [bluegenes.version :as version]
             [bluegenes.utils :as utils]
             [lambdaisland.uri :refer [uri]]
@@ -221,6 +222,12 @@
    (get-in current-mine [:service :token])))
 
 (reg-sub
+ :active-service
+ :<- [:current-mine]
+ (fn [current-mine]
+   (get-in current-mine [:service])))
+
+(reg-sub
  :version
  :<- [:assets]
  :<- [:current-mine-name]
@@ -297,6 +304,12 @@
  :<- [:current-intermine-version]
  (fn [current-version]
    (utils/compatible-version? version/widget-support current-version)))
+
+(reg-sub
+ :rdf-support?
+ :<- [:current-intermine-version]
+ (fn [current-version]
+   (utils/compatible-version? version/rdf-support current-version)))
 
 (reg-sub
  :show-mine-loader?

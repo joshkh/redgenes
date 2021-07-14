@@ -387,6 +387,13 @@ label {
   display: flex;
   align-items: center;
 }
+
+// Show dropdown contents on hover if it has the .dropdown-hover class on the
+// containing .dropdown element.
+.dropdown-hover:hover .dropdown-menu {
+    display: block;
+}
+
 /** TODO: Move these somewhere better **/
 button.btn, button.cta {
   display: flex;

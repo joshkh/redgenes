@@ -140,3 +140,22 @@ input.form-control:focus {
 label {
   color: @body-foreground-color;
 }
+
+.radio input[type=radio]:checked ~ .check,
+label.radio-inline input[type=radio]:checked ~ .check {
+  background-color: @highlight-color;
+}
+.radio input[type=radio]:checked ~ .circle,
+label.radio-inline input[type=radio]:checked ~ .circle {
+  border-color: @highlight-color;
+}
+
+.togglebutton label input[type=checkbox]:checked + .toggle {
+  background-color: fade(@highlight-color, 50%);
+}
+.togglebutton label input[type=checkbox]:checked + .toggle:after {
+  background-color: @highlight-color;
+}
+.togglebutton label input[type=checkbox]:checked + .toggle:active:after {
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 0 0 15px fade(@highlight-color, 10%);
+}

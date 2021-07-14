@@ -124,6 +124,7 @@
                              :search [::route/navigate ::route/search]
                              :list [::route/navigate ::route/lists]
                              :template [::route/navigate ::route/templates]
+                             :region [::route/navigate ::route/regions]
                              [::route/go-back]))}
      [icon "chevron-left"]
      (str "Back to "
@@ -132,6 +133,7 @@
             :search "Search"
             :list "Lists"
             :template "Templates"
+            :region "Region Search"
             "previous page"))]))
 
 (defn query-details []

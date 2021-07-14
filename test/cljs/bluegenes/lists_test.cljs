@@ -271,17 +271,17 @@
 
 (deftest copy-list-name
   (is (= "UseCase1_transcripts_oxidativeStress_1_1"
-         (utils/copy-list-name {1 {:name "UseCase1_transcripts_oxidativeStress_1"}}
+         (utils/copy-list-name [{:name "UseCase1_transcripts_oxidativeStress_1"}]
                                "UseCase1_transcripts_oxidativeStress_1")))
   (is (= "foo_1"
-         (utils/copy-list-name {1 {:name "foo"}} "foo")))
+         (utils/copy-list-name [{:name "foo"}] "foo")))
   (is (= "foo_1"
-         (utils/copy-list-name {1 {:name "foo_"}} "foo")))
+         (utils/copy-list-name [{:name "foo_"}] "foo")))
   (is (= "foo_2"
-         (utils/copy-list-name {1 {:name "foo"} 2 {:name "foo_1"}} "foo")))
+         (utils/copy-list-name [{:name "foo"} {:name "foo_1"}] "foo")))
   (is (= "foo_10"
-         (utils/copy-list-name {1 {:name "foo"} 2 {:name "foo_9"}} "foo")))
+         (utils/copy-list-name [{:name "foo"} {:name "foo_9"}] "foo")))
   (is (= "foo_11"
-         (utils/copy-list-name {1 {:name "foo"} 2 {:name "foo_9"} 3 {:name "foo_10"}} "foo")))
+         (utils/copy-list-name [{:name "foo"} {:name "foo_9"} {:name "foo_10"}] "foo")))
   (is (= "foo_11"
-         (utils/copy-list-name {1 {:name "foo"} 2 {:name "foo_10"}} "foo"))))
+         (utils/copy-list-name [{:name "foo"} {:name "foo_10"}] "foo"))))

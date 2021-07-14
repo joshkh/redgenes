@@ -37,6 +37,9 @@
 ;; From this version on, enrichment is improved and widgets are shown.
 (def widget-support "5.0.2")
 
+;; New features exposing RDF data.
+(def rdf-support "5.1.0")
+
 ;;;; Version numbers you *might* want to change.
 
 ;; This is the current Tool API version. Increment this when you're forced to

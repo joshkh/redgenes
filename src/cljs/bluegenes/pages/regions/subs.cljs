@@ -27,9 +27,46 @@
    (get-in db [:regions :settings])))
 
 (reg-sub
- :regions/regions-searched
- (fn [db]
-   (get-in db [:regions :regions-searched])))
+ :regions/feature-types
+ :<- [:regions/settings]
+ (fn [settings]
+   (:feature-types settings)))
+
+(reg-sub
+ :regions/coordinates
+ :<- [:regions/settings]
+ (fn [settings]
+   (:coordinates settings)))
+
+(reg-sub
+ :regions/strand-specific
+ :<- [:regions/settings]
+ (fn [settings]
+   (:strand-specific settings)))
+
+(reg-sub
+ :regions/organism
+ :<- [:regions/settings]
+ (fn [settings]
+   (:organism settings)))
+
+(reg-sub
+ :regions/extend-start
+ :<- [:regions/settings]
+ (fn [settings]
+   (:extend-start settings)))
+
+(reg-sub
+ :regions/extend-end
+ :<- [:regions/settings]
+ (fn [settings]
+   (:extend-end settings)))
+
+(reg-sub
+ :regions/unlock-extend
+ :<- [:regions/settings]
+ (fn [settings]
+   (:unlock-extend settings)))
 
 (reg-sub
  :regions/results
@@ -51,3 +88,18 @@
  :<- [:current-mine]
  (fn [mine]
    (:regionsearch-example mine)))
+
+(reg-sub
+ :regions/highlighted?
+ (fn [db [_ idx loc]]
+   (= loc (get-in db [:regions :highlight idx]))))
+
+(reg-sub
+ :regions/query
+ (fn [db]
+   (get-in db [:regions :query])))
+
+(reg-sub
+ :regions/subquery
+ (fn [db [_ idx]]
+   (get-in db [:regions :subqueries idx])))

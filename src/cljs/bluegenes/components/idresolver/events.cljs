@@ -176,9 +176,9 @@
 (reg-event-fx
  ::upgrade-list-success
  (fn [{db :db} [_ list-name _res]]
-   {:dispatch-n [; Re-fetch our lists so that it shows in Lists page
-                 [:assets/fetch-lists]
-                 [::route/navigate ::route/results {:title list-name}]]}))
+   {:dispatch ;; Re-fetch our lists so that it shows in Lists page.
+    [:assets/fetch-lists
+     [::route/navigate ::route/results {:title list-name}]]}))
 
 (reg-event-fx
  ::upgrade-list-failure

@@ -399,9 +399,10 @@
    (let [service (get-in db [:mines (:current-mine db) :service])
          {:keys [by-id selected-lists]
           {:keys [folder-path target-id]} :modal} (:lists db)
+         lists (->> (vals by-id) (remove folder?))
          folder-tag (when (seq folder-path) (join-path folder-path))
          target-lists (->> (if target-id [target-id] selected-lists) (map by-id) (map :name))
-         copied-lists (map #(copy-list-name by-id %) target-lists)]
+         copied-lists (map #(copy-list-name lists %) target-lists)]
      (if (seq target-lists)
        ;; If you look at the source of `save/im-list-copy` you can see it's
        ;; inefficient due to it running a query to fetch information we already

@@ -261,9 +261,8 @@
   this name, we instead find the identical list names with a '_*' postfix and
   grab the one with the highest number. The increment of this number will then
   be used as postfix for the new list name."
-  [by-id list-name]
-  (let [greatest-postfix-num (->> (vals by-id)
-                                  (remove folder?)
+  [lists list-name]
+  (let [greatest-postfix-num (->> lists
                                   (map :name)
                                   (filter #(str/starts-with? % (str list-name "_")))
                                   (map #(-> % (str/split #"_") peek js/parseInt))

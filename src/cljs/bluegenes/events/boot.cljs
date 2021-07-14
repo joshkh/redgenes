@@ -422,22 +422,24 @@
 
 (reg-event-fx
  :assets/success-fetch-lists
- (fn [{db :db} [_ mine-kw lists]]
-   (merge
-    {:db (assoc-in db [:assets :lists mine-kw] lists)}
-    ;; Denormalize lists right-away if you're on the lists page.
-    (when (= :lists-panel (:active-panel db))
-      {:dispatch [:lists/initialize]}))))
+ (fn [{db :db} [_ mine-kw next-evt lists]]
+   (cond-> {:db (assoc-in db [:assets :lists mine-kw] lists)
+            :dispatch-n []}
+     (vector? next-evt)
+     (update :dispatch-n conj next-evt)
+     ;; Denormalize lists right-away if you're on the lists page.
+     (= :lists-panel (:active-panel db))
+     (update :dispatch-n conj [:lists/initialize]))))
 
 ;; This event is also dispatched externally from bluegenes.pages.lists.events.
 (reg-event-fx
  :assets/fetch-lists
- (fn [{db :db} [evt]]
+ (fn [{db :db} [evt next-evt]]
    {:db (assoc-in db (concat lists/root [:fetching-lists?]) true)
     :im-chan {:chan (fetch/lists
                      (get-in db [:mines (:current-mine db) :service])
                      {:showTags true})
-              :on-success [:assets/success-fetch-lists (:current-mine db)]
+              :on-success [:assets/success-fetch-lists (:current-mine db) next-evt]
               :on-failure [:assets/failure evt]}}))
 
 ; Fetch class keys
